@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="56" viewBox="0 0 260 56" role="img" aria-label="ImageFreeway">
+  <path d="M6 40 Q70 -2 132 28" fill="none" stroke="#8a8d91" stroke-width="5" stroke-linecap="round"/>
+  <path d="M254 18 Q190 58 128 28" fill="none" stroke="#8a8d91" stroke-width="5" stroke-linecap="round"/>
+  <text x="4" y="42" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="26" fill="#2b3990" letter-spacing="-1">IMAGE</text>
+  <text x="104" y="42" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-style="italic" font-size="26" fill="#78a62a" letter-spacing="-1">FREEWAY</text>
+</svg>

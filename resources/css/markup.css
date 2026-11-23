@@ -1,0 +1,23 @@
+/* ---------- Mark-up viewer ---------- */
+.mk-bar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; border-bottom: 1px solid #e2e8f0; padding: .6rem .9rem; }
+.mk-tool.is-on { background: var(--brand, #1d4ed8); color: #fff; border-color: transparent; }
+.mk-apply:not(.hidden) { display: flex; flex-wrap: wrap; }
+.mk-scroll { max-height: 78vh; overflow: auto; background: #f1f5f9; padding: 1rem; }
+.mk-stage { position: relative; margin: 0 auto; width: fit-content; max-width: 100%; box-shadow: 0 1px 6px rgb(0 0 0 / .15); background: #fff; }
+.mk-stage img { display: block; max-width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
+.mk-layer { position: absolute; inset: 0; cursor: crosshair; }
+.mk-mark { position: absolute; box-sizing: border-box; }
+.mk-note { border: 2px solid #f59e0b; background: rgb(251 191 36 / .18); }
+.mk-highlight { background: rgb(250 204 21 / .4); mix-blend-mode: multiply; }
+.mk-redact { background: rgb(15 23 42 / .72); border: 2px dashed #ef4444; }
+.mk-ghost { pointer-events: none; opacity: .8; }
+.mk-pin { position: absolute; left: 0; top: 100%; z-index: 3; display: none; width: max-content; max-width: 16rem; margin-top: 2px; border-radius: .4rem; background: #fffbeb; border: 1px solid #fcd34d; padding: .4rem .55rem; font-size: .75rem; color: #78350f; box-shadow: 0 4px 12px rgb(0 0 0 / .15); white-space: pre-wrap; }
+.mk-pin em { display: block; margin-top: .2rem; font-style: normal; color: #b45309; opacity: .8; font-size: .65rem; }
+.mk-note:hover .mk-pin { display: block; }
+.mk-tag { position: absolute; left: 4px; top: 2px; font-size: .6rem; font-weight: 600; color: #fecaca; text-transform: uppercase; letter-spacing: .04em; }
+.mk-del { position: absolute; right: -9px; top: -9px; z-index: 4; display: none; width: 18px; height: 18px; border-radius: 9999px; background: #ef4444; color: #fff; font-size: 13px; line-height: 16px; text-align: center; cursor: pointer; border: 0; }
+.mk-mark:hover > .mk-del { display: block; }
+.mk-sign { border: 2px dashed #2563eb; background: rgb(37 99 235 / .12); background-repeat: no-repeat; background-position: center; background-size: contain; }
+.mk-sign .mk-tag { color: #1d4ed8; }
+.mk-sign.is-filled { background-color: rgb(255 255 255 / .6); border-style: solid; }
+.mk-sign.is-filled .mk-tag { display: none; }

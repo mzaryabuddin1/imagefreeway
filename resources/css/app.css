@@ -1,0 +1,139 @@
+@import 'tailwindcss';
+@import './flow-builder.css';
+@import './markup.css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+/* Brand colours come from CSS variables set per client in the layout (white-label). */
+@theme inline {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, 'Segoe UI', Roboto, sans-serif;
+    --color-brand: var(--brand);
+    --color-brand-dark: var(--brand-dark);
+    --color-brand-soft: var(--brand-soft);
+    --color-side: var(--side);
+    --color-side-dark: var(--side-dark);
+}
+
+@layer base {
+    body { @apply bg-slate-50 text-slate-800 antialiased; }
+    [data-lucide] { width: 1.1rem; height: 1.1rem; stroke-width: 2; flex-shrink: 0; }
+}
+
+@layer components {
+    .card { @apply rounded-xl border border-slate-200 bg-white shadow-sm; }
+    .card-pad { @apply p-5; }
+    .label { @apply mb-1.5 block text-sm font-medium text-slate-700; }
+    .input { @apply block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition placeholder:text-slate-400 focus:border-brand focus:ring-2 focus:ring-brand/25 disabled:bg-slate-100; }
+    .btn { @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-brand/40 disabled:opacity-60; }
+    .btn-primary { @apply bg-brand text-white hover:bg-brand-dark; }
+    .btn-ghost { @apply border border-slate-300 bg-white text-slate-700 hover:bg-slate-50; }
+    .btn-danger { @apply bg-red-600 text-white hover:bg-red-700; }
+    .btn-sm { @apply px-2.5 py-1.5 text-xs; }
+    .icon-btn { @apply inline-flex size-8 cursor-pointer items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-800; }
+    .badge { @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold; }
+    .badge-green { @apply bg-emerald-50 text-emerald-700; }
+    .badge-amber { @apply bg-amber-50 text-amber-700; }
+    .badge-red { @apply bg-red-50 text-red-700; }
+    .badge-slate { @apply bg-slate-100 text-slate-600; }
+    .badge-blue { @apply bg-blue-50 text-blue-700; }
+    .th { @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500; }
+    .td { @apply px-4 py-3 text-sm; }
+    .nav-link { @apply flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-white/75 transition hover:bg-white/10 hover:text-white; }
+    .nav-link.active { @apply bg-brand text-white shadow-sm; }
+    .field-error { @apply mt-1 text-xs text-red-600; }
+}
+
+/* Slim progress bar shown during AJAX navigation */
+#ajax-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--brand); z-index: 9999; transition: width .25s ease, opacity .3s ease; opacity: 0; }
+#ajax-bar.on { opacity: 1; }
+#page { animation: pageIn .18s ease; }
+@keyframes pageIn { from { opacity: .4; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* SweetAlert2: modern look, buttons follow the client's brand colour */
+.ifw-swal { border-radius: 1rem !important; padding: 1.5rem 1.5rem 1.25rem !important; font-family: inherit; box-shadow: 0 25px 60px -12px rgb(15 23 42 / .35) !important; }
+.ifw-swal.swal2-toast { padding: .75rem 1rem !important; border-radius: .75rem !important; box-shadow: 0 10px 30px -8px rgb(15 23 42 / .3) !important; }
+.ifw-swal-title { font-size: 1.15rem !important; font-weight: 700 !important; color: #0f172a !important; }
+.ifw-swal .swal2-html-container { color: #475569; font-size: .9rem; }
+.swal2-actions { gap: .5rem; }
+.ifw-swal-btn { cursor: pointer; border-radius: .6rem; padding: .55rem 1.1rem; font-size: .875rem; font-weight: 600; background: var(--brand); color: #fff; border: 0; transition: background .15s; }
+.ifw-swal-btn:hover { background: var(--brand-dark); }
+.ifw-swal-btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.ifw-swal-cancel { background: #f1f5f9; color: #334155; }
+.ifw-swal-cancel:hover { background: #e2e8f0; }
+.ifw-swal-btn.ifw-swal-danger { background: #dc2626; }
+.ifw-swal-btn.ifw-swal-danger:hover { background: #b91c1c; }
+
+/* Red star on every label whose field is required */
+.label:has(~ [required])::after,
+.label:has(~ * [required])::after { content: ' *'; color: #dc2626; font-weight: 700; }
+
+/* ---------- Modern scrollbars ---------- */
+/* Thin, rounded, auto-hiding thumb everywhere (Firefox + Chromium/Safari) */
+* { scrollbar-width: thin; scrollbar-color: rgb(148 163 184 / .55) transparent; }
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: rgb(148 163 184 / .45); border-radius: 9999px; border: 2px solid transparent; background-clip: content-box; transition: background .2s; }
+*::-webkit-scrollbar-thumb:hover { background: rgb(100 116 139 / .8); background-clip: content-box; }
+*::-webkit-scrollbar-corner { background: transparent; }
+
+/* Sidebar: invisible until you hover it, then a soft white thumb on the dark brand colour */
+#sidebar-nav { scrollbar-width: thin; scrollbar-color: transparent transparent; transition: scrollbar-color .25s; scroll-behavior: smooth; }
+#sidebar-nav:hover { scrollbar-color: rgb(255 255 255 / .35) transparent; }
+#sidebar-nav::-webkit-scrollbar { width: 6px; }
+#sidebar-nav::-webkit-scrollbar-thumb { background: transparent; border: 0; background-clip: border-box; }
+#sidebar-nav:hover::-webkit-scrollbar-thumb { background: rgb(255 255 255 / .28); }
+#sidebar-nav:hover::-webkit-scrollbar-thumb:hover { background: rgb(255 255 255 / .5); }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html, #sidebar-nav { scroll-behavior: auto; } }
+
+/* ---------- Walkthrough flag ---------- */
+.tour-flag { position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 60; display: inline-flex; width: 3.25rem; height: 3.25rem; align-items: center; justify-content: center; border-radius: 9999px; background: var(--brand); color: #fff; box-shadow: 0 8px 24px rgb(0 0 0 / .25); transition: transform .15s; }
+.tour-flag:hover { transform: scale(1.08); }
+.tour-flag svg { width: 1.4rem; height: 1.4rem; }
+.tour-badge { position: absolute; right: -.15rem; top: -.15rem; min-width: 1.25rem; height: 1.25rem; padding: 0 .3rem; border-radius: 9999px; background: #ef4444; color: #fff; font-size: .7rem; font-weight: 700; line-height: 1.25rem; text-align: center; }
+.tour-badge.is-done { background: #16a34a; }
+.tour-card { position: fixed; right: 1.25rem; bottom: 5.5rem; z-index: 60; width: min(22rem, calc(100vw - 2.5rem)); max-height: 75vh; overflow-y: auto; border-radius: 1rem; border: 1px solid #e2e8f0; background: #fff; padding: 1rem 1.1rem; box-shadow: 0 20px 50px rgb(0 0 0 / .25); }
+.tour-card.hidden { display: none; }
+.tour-head { display: flex; align-items: center; justify-content: space-between; }
+.tour-step { font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--brand); }
+.tour-x { font-size: 1.3rem; line-height: 1; color: #94a3b8; }
+.tour-x:hover { color: #0f172a; }
+.tour-bar { margin: .5rem 0 .75rem; height: 4px; border-radius: 9999px; background: #e2e8f0; overflow: hidden; }
+.tour-bar i { display: block; height: 100%; background: var(--brand); transition: width .3s; }
+.tour-title { font-size: 1.05rem; font-weight: 700; }
+.tour-text { margin-top: .35rem; font-size: .85rem; line-height: 1.35rem; color: #475569; }
+.tour-here { margin-top: .6rem; font-size: .8rem; font-weight: 600; color: #16a34a; }
+.tour-nav { display: flex; gap: .5rem; margin-top: .75rem; }
+.tour-nav .tour-btn:last-child { flex: 1; }
+.tour-btn { display: inline-block; border-radius: .6rem; border: 1px solid #cbd5e1; padding: .45rem .75rem; text-align: center; font-size: .8rem; font-weight: 600; color: #334155; }
+.tour-btn:hover:not(:disabled) { background: #f1f5f9; }
+.tour-btn:disabled { opacity: .4; }
+.tour-primary { margin-top: .75rem; border-color: transparent; background: var(--brand); color: #fff; }
+.tour-nav .tour-primary { margin-top: 0; }
+.tour-primary:hover:not(:disabled) { background: var(--brand-dark) !important; }
+.tour-all { margin-top: .75rem; border-top: 1px solid #f1f5f9; padding-top: .6rem; font-size: .78rem; }
+.tour-all summary { cursor: pointer; color: #64748b; }
+.tour-all ol { margin-top: .4rem; list-style: none; }
+.tour-all a { display: block; border-radius: .4rem; padding: .2rem .4rem; color: #475569; }
+.tour-all a:hover { background: #f1f5f9; }
+.tour-all a.is-now { background: var(--brand-soft); font-weight: 600; color: var(--brand); }
+.tour-hl { position: relative; z-index: 5; outline: 3px solid #f59e0b; outline-offset: 2px; border-radius: .6rem; animation: tour-pulse 1.4s ease-in-out infinite; }
+@keyframes tour-pulse { 0%, 100% { outline-color: #f59e0b; } 50% { outline-color: rgb(245 158 11 / .25); } }
+@media (prefers-reduced-motion: reduce) { .tour-hl { animation: none; } }
+
+/* ---------- Signature methods (draw / type / upload / camera) ---------- */
+.sm-tab { display: inline-flex; align-items: center; justify-content: center; gap: .25rem; border: 1px solid #cbd5e1; border-radius: .5rem; padding: .4rem .25rem; font-weight: 600; color: #475569; }
+.sm-tab svg { width: .9rem; height: .9rem; }
+.sm-tab.is-on { border-color: transparent; background: var(--brand); color: #fff; }
+.tour-sub { margin: .8rem 0 .3rem; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #94a3b8; }
+.tour-item { display: block; width: 100%; margin-top: .4rem; border: 1px solid #e2e8f0; border-radius: .7rem; padding: .55rem .7rem; text-align: left; transition: border-color .15s, background .15s; }
+.tour-item:hover { border-color: var(--brand); background: var(--brand-soft); }
+.tour-item b { display: block; font-size: .85rem; color: #0f172a; }
+.tour-item span { display: block; margin-top: .1rem; font-size: .75rem; line-height: 1.1rem; color: #64748b; }
+.tour-item em { display: block; margin-top: .15rem; font-style: normal; font-size: .68rem; font-weight: 600; color: var(--brand); }
+.tour-foot { margin-top: .6rem; }
+.tour-link { font-size: .75rem; font-weight: 600; color: var(--brand); }
+.tour-link:hover { text-decoration: underline; }
+.tour-miss { margin-top: .5rem; border-radius: .5rem; background: #fffbeb; padding: .4rem .6rem; font-size: .75rem; color: #92400e; }
